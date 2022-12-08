@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+   mysql_db:
+    image: mysql:8.0
+    container_name: literature_mysql_db
+    ports:
+     - 3306:3306
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+     - MYSQL_USER=kel2
+     - MYSQL_PASSWORD=Literature1
+     - MYSQL_DATABASE=literature
+   volumes:
+    - ~/database:/var/lib/mysql   
+     
+   literature_be: 
+    build: .
+    container_name: literature_be
+    ports: 
+     - 5000:5000
+    depends_on: 
+     - mysql_db
+

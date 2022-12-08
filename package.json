@@ -9,7 +9,7 @@
   "author": "Nur Askiah",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.1.0",
     "cloudinary": "^1.23.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -20,8 +20,10 @@
     "multer-storage-cloudinary": "^4.0.0",
     "mysql2": "^2.2.5",
     "pg": "^8.4.2",
-    "sequelize": "^6.3.5",
+    "sequelize": "^6.26.0",
     "sequelize-cli": "^6.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }

@@ -1,14 +1,14 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
+    "username": "kel2",
+    "password": "Literature1",
     "database": "literature",
-    "host": "127.0.0.1",
+    "host": "103.189.235.91",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": "root",
+    "username": "kel2",
+    "password": "Literature1",
     "database": "literature",
     "host": "127.0.0.1",
     "dialect": "mysql"
