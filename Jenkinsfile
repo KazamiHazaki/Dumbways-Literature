@@ -6,41 +6,41 @@ def url = 'https://github.com/KazamiHazaki/Dumbways-Literature'
 def branch = 'master'
 def image = 'literature-be:1.3'
 
-pipeline{
+
+
+pipeline {
     agent any
-    stages{
-        stage('Pull from backend repo') {
+
+    stages {
+        stage('Pull from BE repo') {
             steps {
-                sshagent([credential]) {
-                    sh """ssh -o StricthostkeyChecking=no ${server} << EOF
+               sshagent([credential]) {
+                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                     cd ${directory}
                     git remote add origin ${url} || git remote set-url origin ${url}
                     git pull ${url} ${branch}
                     exit
                     EOF"""
-                }
             }
         }
-
-        stage('Docker Build'){
-            steps{
-                sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
+    }
+        stage('Docker Build') {
+            steps {
+                 sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                 cd ${directory}
                 docker-compose build
                 exit
                 EOF"""
             }
         }
-
-        stage('docker compose'){
-            steps{
-                sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
+        stage('Docker Compose') {
+            steps {
+                sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
                 cd ${directory}
                 docker-compose up -d
                 exit
                 EOF"""
             }
         }
-     
     }
 }
