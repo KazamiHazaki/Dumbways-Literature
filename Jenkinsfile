@@ -1,6 +1,6 @@
 def secret = 'kel2'
-def server = 'ubuntu@103.189.235.91'
-def directory = 'Dumbways-Literature'
+def server = 'app@103.189.235.91'
+def directory = 'literature-backend2'
 def branch = 'main'
 
 
