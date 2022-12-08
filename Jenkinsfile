@@ -1,45 +1,46 @@
-def credential = 'kel2'
-def userdock = 'kazamisei98'
-def server = 'app@103.189.235.91'
-def directory = 'literature-backend2'
-def url = 'https://github.com/KazamiHazaki/Dumbways-Literature'
+def secret = 'kel2'
+def server = 'ubuntu@103.189.235.91'
+def directory = 'Dumbways-Literature'
 def branch = 'main'
-def image = 'literature-be:1.3'
 
 
 
-pipeline {
+pipeline{
     agent any
-
-    stages {
-        stage('Pull from BE repo') {
-            steps {
-               sshagent([credential]) {
-                    sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
+    stages{
+        stage ('delete docker & git pull'){
+            steps{
+                sshagent([secret]) {
+                    sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
                     cd ${directory}
-                    git remote add origin ${url} || git remote set-url origin ${url}
-                    git pull ${url} ${branch}
+                    docker-compose down
+                    docker system prune -f
+                    git pull origin ${branch}
                     exit
                     EOF"""
+                }
             }
         }
-    }
-        stage('Docker Build') {
-            steps {
-                 sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
-                cd ${directory}
-                docker-compose build
-                exit
-                EOF"""
+        stage ('docker build'){
+            steps{
+                sshagent([secret]) {
+                    sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
+                    cd ${directory}
+                    docker-compose build
+                    exit
+                    EOF"""
+                }
             }
         }
-        stage('Docker Compose') {
-            steps {
-                sh """ssh -o StrictHostkeyChecking=no ${server} << EOF
-                cd ${directory}
-                docker-compose up -d
-                exit
-                EOF"""
+        stage ('docker up'){
+            steps{
+                sshagent([secret]) {
+                    sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
+                    cd ${directory}
+                    docker-compose up -d
+                    exit
+                    EOF"""
+                }
             }
         }
     }
