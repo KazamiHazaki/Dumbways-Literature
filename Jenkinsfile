@@ -7,6 +7,13 @@ def branch = 'main'
 
 pipeline{
     agent any
+
+   post {
+    always {
+   discordSend description: 'Jenkins Build', enableArtifactsList: true, footer: '', image: '', link: '', result: '', scmWebUrl: '', showChangeset: true, thumbnail: '', title: 'Jenkins Literature Backend', webhookURL: 'https://discord.com/api/webhooks/1050591484052766740/fX357kf9wiKUhoSlW2aVwa0WnQK0wmMQb4gP7Tulwi6EULxbmwpFzXazPdPRc4L49e4D'
+    }
+  }
+
     stages{
         stage ('delete docker & git pull'){
             steps{
